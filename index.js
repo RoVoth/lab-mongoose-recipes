@@ -31,29 +31,36 @@ mongoose
   })
   .then((response) => {
     console.log("Esta es la receta añadida");
-    return Recipe.find().select({title:1, _id:0})
+    return Recipe.find().select({ title: 1, _id: 0 });
   })
   .then((response) => {
     console.log(response);
-    return Recipe.insertMany(data)
+    return Recipe.insertMany(data);
   })
   .then((response) => {
-    console.log("Ahora hemos agregado toda la matriz de datos")
-    return Recipe.find().select({title:1, _id:0})
+    console.log("Ahora hemos agregado toda la matriz de datos");
+    return Recipe.find().select({ title: 1, _id: 0 });
   })
-  .then((response) =>{
-    console.log(response)
-    return Recipe.findOneAndUpdate({title: "Rigatoni alla Genovese"}, {duration: 100}, {new:true})
+  .then((response) => {
+    console.log(response);
+    return Recipe.findOneAndUpdate(
+      { title: "Rigatoni alla Genovese" },
+      { duration: 100 },
+      { new: true }
+    );
   })
-  .then((response) =>{
-    console.log("Ahora ya hemos cambiado el tiempo a la receta!")    
+  .then((response) => {
+    console.log("Ahora ya hemos cambiado el tiempo a la receta!");
   })
-  .then((response) =>{
-    return Recipe.deleteOne({title: "Carrot Cake"})
+  .then((response) => {
+    return Recipe.deleteOne({ title: "Carrot Cake" });
   })
-  .then((response) =>{
-    console.log("La Carrot Cake fue eliminada!")    
+  .then((response) => {
+    console.log("La Carrot Cake fue eliminada!");
+
+    return mongoose.connection.close();
   })
+  .then(() => console.log(`connection.closed`))
   .catch((error) => {
     console.error("Error connecting to the database", error);
   });
